@@ -4,12 +4,11 @@
 
 ## 编译
 
-1. 执行Gulp任务。
+如果你使用的Node版本不支持Async/Await，那么需要用Babel转译。执行Gulp任务：
 ```
 gulp babel
 ```
-
-2. 在./build目录下生成tool.js。
+将在./build目录下生成tool.js。
 
 ## 功能列表
 
