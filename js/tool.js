@@ -1,5 +1,4 @@
 const path = require('path');
-const mapLimit = require('async/mapLimit');
 const api = require('./api');
 const util = require('./util');
 
@@ -8,17 +7,17 @@ const util = require('./util');
  * 
  * @param　url_token 问题页面URL中最后的数字串
  * @param　[offset] 从第几个答案开始下载
- * @param [limit] 最多获取几个答案的图片
- * @param [saveDir] 文件保存路径
+ * @param [limit] 最多获取几个答案的图片，０表示无限制
+ * @param [saveDir] 文件保存的目录
  */
 async function batchDownloadImages(url_token, offset = 0, limit = 0, saveDir = './images') {
-    // 已处理的答案数量
-    let n = 0;
+    let n = 0;　// 已处理的答案数量
     let downloader = new util.Downloader(10);
 
     loop:
     while (true) {
         let answers = await api.listAnswers(url_token, offset);
+
         if (!answers || answers.length === 0) break;
 
         for (let answer of answers) {

@@ -1,7 +1,6 @@
 
 const agent = require('superagent');
 const cheerio = require('cheerio');
-
 const IMG_POSTFIX = /_[rb]/;
 
 /**
@@ -30,19 +29,16 @@ async function listAnswers(url_token, offset = 0) {
             var $this = $(this);
             let src = $this.data('original') || $this.data('actualsrc');
             if (src) {
-                src = src.replace(IMG_POSTFIX, '');
-                images.push(src);
+                images.push(src.replace(IMG_POSTFIX, ''));
             }
         });
 
-        let answer = {
+        return {
             authorName: $content.data('author-name'),
             authorLink: $author.attr('href'),
             link: $content.data('entry-url'),
             images: images
         };
-
-        return answer;
     });
 
     return answers;
